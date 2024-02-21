@@ -1,27 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const HomePage = ({ token }) => {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('https://jwt.sulla.hu/termekek', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
-      }
-    };
-
-    if (token) {
-      fetchProducts();
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('https://jwt.sulla.hu/termekek', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
     }
-  }, [token]);
+  };
+
+  if (token) {
+    fetchProducts();
+  }
 
   return (
     <div className='container p-5 bg-ivory w-50 mt-5 text-center'>
