@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -9,15 +8,15 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 
 const App = () => {
-  const [token, setToken] = useState(null);
+  const [authToken, setAuthToken] = React.useState(null);
 
   const handleLogin = (token) => {
-    setToken(token);
+    setAuthToken(token);
   };
 
   return (
     <div>
-      {!token ? <LoginPage onLogin={handleLogin} /> : <HomePage token={token} />}
+      {!authToken ? <LoginPage onLogin={handleLogin} /> : <HomePage token={authToken} />}
     </div>
   );
 };
