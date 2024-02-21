@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -15,9 +15,12 @@ const App = () => {
   };
 
   return (
-    <div>
-      {!authToken ? <LoginPage onLogin={handleLogin} /> : <HomePage token={authToken} />}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/home" element={<HomePage token={authToken} />} />
+      </Routes>
+    </Router>
   );
 };
 

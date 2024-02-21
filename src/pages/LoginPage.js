@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const LoginPage = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post('https://jwt.sulla.hu/login', {
-        username,
-        password
-      });
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    axios.post('https://jwt.sulla.hu/login', {
+      username,
+      password
+    })
+    .then(response => {
       const token = response.data.token;
       onLogin(token);
-    } catch (error) {
+      
+    })
+    .then(navigate('/home'))
+    .catch(error => {
       console.error('Login failed:', error);
-    }
+    });
   };
 
   return (
